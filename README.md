@@ -20,7 +20,7 @@ So, if you're ready to work hard, go to [Getting Started](./materials/getting_st
 ## Progress
 
 - [x] [Info](#frontend-lab)
-- [ ] [Getting Started](./materials/getting_started.md)
+- [x] [Getting Started](./materials/getting_started.md)
 - [ ] [Landing Page](./materials/landing_page.md)
 - [ ] [Landing Page - Working With Third-Party Services](./materials/landing_page_with_data.md)
 - [ ] [Javascript - Custom Moment.js](./materials/js/custom_moment_js.md)
