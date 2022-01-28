@@ -13,8 +13,16 @@ a {
   text-decoration: none
 }
 
+a.fas {
+  color: #fff;
+}
+
 a:hover {
   color: black;
+}
+
+.button-image:hover a.fas {
+  color: orange;
 }
 
 h2 {
@@ -59,6 +67,15 @@ label {
 
 .uppercase {
   text-transform: uppercase;
+}
+
+.button.disabled {
+  color: #d0d0d0;
+}
+
+.button.disabled:hover {
+  border: 1px solid #d0d0d0;
+  cursor: auto;
 }
 
 .button {
@@ -542,6 +559,11 @@ label {
 .image-block-photo-name:hover {
   cursor: pointer;
   color: orange
+}
+
+.pagination-buttons-wrapper {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .contact-form-wrapper {
