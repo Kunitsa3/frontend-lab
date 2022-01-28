@@ -57,6 +57,10 @@ label {
   width: 130px;
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
 .button {
   width: 36px;
   height: 36px;
@@ -67,7 +71,10 @@ label {
   font-size: 0.8em;
   cursor: pointer;
   margin: 2px;
-  transition: all 0.5s ease 0s;
+}
+
+.button:hover {
+  border: 1px solid black;
 }
 
 .roboto-font {
@@ -160,10 +167,6 @@ label {
   }
 }
 
-.button-wrapper:hover {
-  border: 1px solid black;
-}
-
 .close-button {
   position: absolute;
   top: 20px;
@@ -250,15 +253,69 @@ label {
   }
 }
 
+.horizontal-navigation-menu-item-wrapper {
+  position: relative;
+  display: flex;
+}
+
 .horizontal-navigation-menu-item {
   font-size: 14px;
   font-family: Roboto;
   font-weight: 400;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
-.separator {
+.horizontal-navigation-menu-item:hover {
+  color: orange;
+}
+
+.horizontal-navigation-menu-item-wrapper:not(:first-child)::before {
+  content: '/';
   color: #d0d0d0;
   margin: 0px 30px;
+}
+
+.horizontal-navigation-submenu {
+  top: calc(100% + 20px);
+  width: 200px;
+  position: absolute;
+  background-color: white;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s, visibility 0s linear 0.4s;
+  z-index: 1;
+}
+
+.horizontal-navigation-submenu::before {
+  content: '';
+  position: absolute;
+  background-color: #fff;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.horizontal-navigation-submenu-item {
+  padding: 10px;
+  border-bottom: 1px solid #d0d0d0;
+  text-transform: uppercase;
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.horizontal-navigation-submenu-item:hover {
+  color: orange;
+}
+
+.horizontal-navigation-menu-item-wrapper:hover .horizontal-navigation-submenu {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
 }
 
 .picture-background {
