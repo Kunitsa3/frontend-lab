@@ -15,9 +15,9 @@ const APIKEY = '4qYrEoyFHTFZXZNSPArlJHKDjcaSUbD2';
 let currentOffset = 0;
 let content;
 
-const nextGif = document.querySelector('#next-page');
-const previousGif = document.querySelector('#previous-page');
-const imageBlockWrapper = document.getElementsByClassName('image-block-wrapper');
+const nextPageBtn = document.querySelector('#next-page');
+const previousPageBtn = document.querySelector('#previous-page');
+const imagesBlocksWrapper = document.getElementsByClassName('images-blocks-wrapper')[0];
 
 const generateImageBlock = ({ link, date, img, name }) => {
   const imageBlock = document.createElement('div');
@@ -70,16 +70,32 @@ Excepturi aperiam eligendi maiores.`;
   return imageBlock;
 };
 
+const checkPreviousPageBtnDisabled = () => {
+  if (!currentOffset) {
+    previousPageBtn.classList.add('disabled');
+  } else {
+    previousPageBtn.classList.remove('disabled');
+  }
+};
+
+const checkNextPageBtnDisabled = () => {
+  if (currentOffset + 8 >= content.pagination.total_count) {
+    nextPageBtn.classList.add('disabled');
+  } else {
+    nextPageBtn.classList.remove('disabled');
+  }
+};
+
 const fetchImages = async () => {
-  let url = `https://api.giphy.com/v1/gifs/search?api_key=${APIKEY}&offset=${currentOffset}&limit=8&q=pigeon`;
+  let url = `https://api.giphy.com/v1/gifs/search?api_key=${APIKEY}&offset=${currentOffset}&limit=8&q=penguin`;
 
   const response = await fetch(url);
   content = await response.json();
 
-  imageBlockWrapper[0].innerHTML = '';
+  imagesBlocksWrapper.innerHTML = '';
 
   content.data.map(element => {
-    imageBlockWrapper[0].appendChild(
+    imagesBlocksWrapper.appendChild(
       generateImageBlock({
         link: element.url,
         date: element.import_datetime,
@@ -88,42 +104,18 @@ const fetchImages = async () => {
       }),
     );
   });
+  checkPreviousPageBtnDisabled();
+  checkNextPageBtnDisabled();
 };
 
-const checkPreviousGifDisabled = () => {
-  if (!currentOffset) {
-    previousGif.classList.add('disabled');
-  } else {
-    previousGif.classList.remove('disabled');
-  }
-};
-
-const checkNextGifDisabled = () => {
-  if (currentOffset + 8 >= content.pagination.total_count) {
-    nextGif.classList.add('disabled');
-  } else {
-    nextGif.classList.remove('disabled');
-  }
-};
-
-nextGif.addEventListener('click', () => {
-  if (currentOffset + 8 <= content.pagination.total_count) {
-    currentOffset += 8;
-    fetchImages();
-  }
-  checkNextGifDisabled();
-  checkPreviousGifDisabled();
+nextPageBtn.addEventListener('click', () => {
+  currentOffset += 8;
+  fetchImages();
 });
 
-previousGif.addEventListener('click', () => {
-  if (currentOffset) {
-    currentOffset -= 8;
-    fetchImages();
-  }
-  checkNextGifDisabled();
-  checkPreviousGifDisabled();
+previousPageBtn.addEventListener('click', () => {
+  currentOffset -= 8;
+  fetchImages();
 });
 
-checkPreviousGifDisabled();
-checkNextGifDisabled();
 fetchImages();

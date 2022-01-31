@@ -71,6 +71,7 @@ label {
 
 .button.disabled {
   color: #d0d0d0;
+  pointer-events: none;
 }
 
 .button.disabled:hover {
@@ -517,7 +518,7 @@ label {
   color: #778899;
 }
 
-.image-block-wrapper {
+.images-blocks-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -535,7 +536,7 @@ label {
     width: 345px;
   }
 
-  .image-block-wrapper {
+  .images-blocks-wrapper {
     max-height: 2400px;
   }
 }
@@ -545,7 +546,7 @@ label {
     width: 290px;
   }
 
-  .image-block-wrapper {
+  .images-blocks-wrapper {
     max-height: 1700px;
   }
 }
