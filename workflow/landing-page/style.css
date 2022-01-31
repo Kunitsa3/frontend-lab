@@ -13,8 +13,16 @@ a {
   text-decoration: none
 }
 
+a.fas {
+  color: #fff;
+}
+
 a:hover {
   color: black;
+}
+
+.button-image:hover a.fas {
+  color: orange;
 }
 
 h2 {
@@ -59,6 +67,16 @@ label {
 
 .uppercase {
   text-transform: uppercase;
+}
+
+.button.disabled {
+  color: #d0d0d0;
+  pointer-events: none;
+}
+
+.button.disabled:hover {
+  border: 1px solid #d0d0d0;
+  cursor: auto;
 }
 
 .button {
@@ -500,7 +518,7 @@ label {
   color: #778899;
 }
 
-.image-block-wrapper {
+.images-blocks-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -518,7 +536,7 @@ label {
     width: 345px;
   }
 
-  .image-block-wrapper {
+  .images-blocks-wrapper {
     max-height: 2400px;
   }
 }
@@ -528,7 +546,7 @@ label {
     width: 290px;
   }
 
-  .image-block-wrapper {
+  .images-blocks-wrapper {
     max-height: 1700px;
   }
 }
@@ -542,6 +560,11 @@ label {
 .image-block-photo-name:hover {
   cursor: pointer;
   color: orange
+}
+
+.pagination-buttons-wrapper {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .contact-form-wrapper {
