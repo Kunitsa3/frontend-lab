@@ -1,20 +1,5 @@
-const numberOfDaysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-const getZero = value => {
-  return value < 10 ? '0' + value : value;
-};
-
-const getS = (number, word) => {
-  return (!!number && number + ` ${number > 1 ? word + 's' : word}`) || '';
-};
-
-const addWhitespace = value => {
-  return value ? ' ' + value : value || '';
-};
-
-const addPrefixSuffix = (value, isSuffix) => {
-  return isSuffix ? value + ' ago' : 'in ' + value;
-};
+const { appendZero, appendEndingS, addWhitespace, addPrefixSuffix, formatComponents, numberOfDaysInMonth } =
+  typeof module !== 'undefined' && typeof module.require !== 'undefined' ? require('./helper') : window.helpers;
 
 class OneMoment extends Date {
   constructor(...value) {
@@ -22,8 +7,6 @@ class OneMoment extends Date {
   }
 
   static parse(date, format) {
-    const formatComponents = ['YYYY', 'MM', 'DD'];
-
     const dateComponents = formatComponents.reduce((acc, curr) => {
       const indexOfFormatComponent = format.indexOf(curr);
 
@@ -47,47 +30,46 @@ class OneMoment extends Date {
 
   format(formatStr) {
     const newFormatHelper = {
-      YYYY: () => this.getFullYear(),
-      MM: () => getZero(this.getMonth() + 1),
-      DD: () => getZero(this.getDate()),
+      YYYY: this.getFullYear(),
+      MM: appendZero(this.getMonth() + 1),
+      DD: appendZero(this.getDate()),
     };
 
-    let newFormatStr = Object.entries(newFormatHelper).reduce((acc, curr) => {
-      return acc.replace(curr[0], curr[1]());
-    }, formatStr);
-
-    return newFormatStr;
+    return Object.entries(newFormatHelper).reduce(
+      (acc, [formatString, value]) => acc.replace(formatString, value),
+      formatStr,
+    );
   }
 
   fromNow() {
     const isFuture = this.getTime() - Date.now() > 0;
-    const [startTime, endTime] = isFuture ? [new OneMoment(), this] : [this, new OneMoment()];
+    const [startDate, endDate] = isFuture ? [new OneMoment(), this] : [this, new OneMoment()];
 
-    const endTimeFullYears = endTime.getFullYear();
-    const startTimeFullYears = startTime.getFullYear();
-    const endTimeMonth = endTime.getMonth();
-    const startTimeMonth = startTime.getMonth();
-    const endTimeDate = endTime.getDate();
-    const startTimeDate = startTime.getDate();
+    const endDateFullYears = endDate.getFullYear();
+    const startDateFullYears = startDate.getFullYear();
+    const endDateMonth = endDate.getMonth();
+    const startDateMonth = startDate.getMonth();
+    const endDateDate = endDate.getDate();
+    const startDateDate = startDate.getDate();
 
-    let years = endTimeFullYears - startTimeFullYears;
+    let years = endDateFullYears - startDateFullYears;
 
-    if (startTimeFullYears < endTimeFullYears && startTimeMonth > endTimeMonth) {
+    if (startDateFullYears < endDateFullYears && startDateMonth > endDateMonth) {
       years -= 1;
     } else if (
-      startTimeFullYears < endTimeFullYears &&
-      startTimeMonth === endTimeMonth &&
-      startTimeDate > endTimeDate
+      startDateFullYears < endDateFullYears &&
+      startDateMonth === endDateMonth &&
+      startDateDate > endDateDate
     ) {
       years -= 1;
     }
 
-    let months = (endTimeMonth <= startTimeMonth ? endTimeMonth + 12 : endTimeMonth) - startTimeMonth;
+    let months = (endDateMonth <= startDateMonth ? endDateMonth + 12 : endDateMonth) - startDateMonth;
 
-    let days = numberOfDaysInMonth[startTimeMonth] - startTimeDate + endTimeDate;
+    let days = numberOfDaysInMonth[startDateMonth] - startDateDate + endDateDate;
 
-    if (endTimeDate >= startTimeDate) {
-      days -= numberOfDaysInMonth[startTimeMonth];
+    if (endDateDate >= startDateDate) {
+      days -= numberOfDaysInMonth[startDateMonth];
     } else {
       months -= 1;
     }
@@ -96,9 +78,9 @@ class OneMoment extends Date {
       months -= 12;
     }
 
-    const yearPhrase = getS(years, 'year');
-    const monthPhrase = getS(months, 'month');
-    const dayPhrase = getS(days, 'day');
+    const yearPhrase = appendEndingS(years, 'year');
+    const monthPhrase = appendEndingS(months, 'month');
+    const dayPhrase = appendEndingS(days, 'day');
 
     const finalPhrase = yearPhrase + addWhitespace(monthPhrase) + addWhitespace(dayPhrase || '');
 
@@ -112,4 +94,10 @@ class OneMoment extends Date {
   toDate() {
     return new Date(this);
   }
+}
+
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = OneMoment;
+} else {
+  window.OneMoment = OneMoment;
 }
