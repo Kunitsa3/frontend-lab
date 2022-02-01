@@ -2,39 +2,44 @@ math.config({
   number: 'BigNumber',
 });
 
-class Cacher {
-  constructor() {}
-
-  deepEqual(x, y) {
-    if (x === y) {
-      return true;
-    } else if (typeof x === 'object' && x !== null && typeof y === 'object' && y !== null) {
-      if (Object.keys(x).length !== Object.keys(y).length) {
-        return false;
-      }
-
-      for (let key in x) {
-        if (y.hasOwnProperty(key)) {
-          if (!this.deepEqual(x[key], y[key])) {
-            return false;
-          }
-        } else {
-          return false;
-        }
-      }
-
-      return true;
-    } else {
+const deepEqual = (firstObject, secondObject) => {
+  if (firstObject === secondObject) {
+    return true;
+  } else if (
+    typeof firstObject === 'object' &&
+    firstObject !== null &&
+    typeof secondObject === 'object' &&
+    secondObject !== null
+  ) {
+    if (Object.keys(firstObject).length !== Object.keys(secondObject).length) {
       return false;
     }
+
+    for (let key in firstObject) {
+      if (secondObject.hasOwnProperty(key)) {
+        if (!deepEqual(firstObject[key], secondObject[key])) {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    }
+
+    return true;
+  } else {
+    return false;
   }
+};
+
+class Cacher {
+  constructor() {}
 
   withCache(callback) {
     let cache = {};
 
     return (...arg) => {
       for (let key in cache) {
-        if (this.deepEqual(JSON.parse(JSON.stringify(arg)), JSON.parse(key))) {
+        if (deepEqual(JSON.parse(JSON.stringify(arg)), JSON.parse(key))) {
           return cache[key];
         }
       }
