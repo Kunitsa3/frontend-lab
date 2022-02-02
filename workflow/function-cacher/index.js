@@ -1,7 +1,3 @@
-math.config({
-  number: 'BigNumber',
-});
-
 const deepEqual = (firstObject, secondObject) => {
   if (firstObject === secondObject) {
     return true;
@@ -38,13 +34,17 @@ class Cacher {
     let cache = {};
 
     return (...arg) => {
-      for (let key in cache) {
-        if (deepEqual(JSON.parse(JSON.stringify(arg)), JSON.parse(key))) {
-          return cache[key];
+      try {
+        for (let key in cache) {
+          if (deepEqual(JSON.parse(JSON.stringify(arg)), JSON.parse(key))) {
+            return cache[key];
+          }
         }
-      }
 
-      return (cache[JSON.stringify(arg)] = callback(...arg));
+        return (cache[JSON.stringify(arg)] = callback(...arg));
+      } catch (e) {
+        return (cache[JSON.stringify(arg)] = e.message);
+      }
     };
   }
 }
@@ -52,7 +52,7 @@ class Cacher {
 const cacher = new Cacher();
 
 const calculateFactorial = a => {
-  return math.evaluate(`${a}!`);
+  return math.factorial(math.bignumber(a));
 };
 const cachedCalculateFactorial = cacher.withCache(calculateFactorial);
 
