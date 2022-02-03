@@ -26,7 +26,7 @@ So, if you're ready to work hard, go to [Getting Started](./materials/getting_st
 - [x] [Javascript - Custom Moment.js](./materials/js/custom_moment_js.md)
 - [ ] [Javascript - Cacher](./materials/js/cacher.md)
 - [ ] [Javascript - Tabs](./materials/js/tabs.md)
-- [ ] [Javascript - JSON Visualizer](./materials/js/json_visualizer.md)
+- [x] [Javascript - JSON Visualizer](./materials/js/json_visualizer.md)
 - [ ] [Package managers and build tools](./materials/build-tools.md)
 - [ ] [React Project](./materials/react)
 
