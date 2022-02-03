@@ -27,6 +27,7 @@ So, if you're ready to work hard, go to [Getting Started](./materials/getting_st
 - [ ] [Javascript - Cacher](./materials/js/cacher.md)
 - [ ] [Javascript - Tabs](./materials/js/tabs.md)
 - [x] [Javascript - JSON Visualizer](./materials/js/json_visualizer.md)
+- [ ] [Javascript - Asynchronous](./materials/js/asynchronous.md)
 - [ ] [Package managers and build tools](./materials/build-tools.md)
 - [ ] [React Project](./materials/react)
 
