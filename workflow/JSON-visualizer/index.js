@@ -27,16 +27,12 @@ function highlightDifferentDataTypes(data) {
   switch (typeof data) {
     case 'number':
       return 'red';
-
     case 'string':
       return 'purple';
-
     case 'bigint':
       return 'yellow';
-
     case 'boolean':
       return 'green';
-
     default:
       return 'blue';
   }
@@ -59,9 +55,9 @@ function addTypeWrapper(valueToCheckType, valueToReturn = valueToCheckType) {
 
 function buildJsonTree(jsonStr, parentDiv) {
   for (let key in jsonStr) {
-    if (!!jsonStr[key] && typeof jsonStr[key] === 'object') {
-      const paragraphInnerHTML = `<span class="complex-type-length">${Object.keys(jsonStr[key]).length}</span>`;
-      const complexTypeText = `${key}: ${addTypeWrapper(jsonStr[key], paragraphInnerHTML)}`;
+    if (jsonStr[key] && typeof jsonStr[key] === 'object') {
+      const complexTypesLengthHTML = `<span class="complex-type-length">${Object.keys(jsonStr[key]).length}</span>`;
+      const complexTypeText = `${key}: ${addTypeWrapper(jsonStr[key], complexTypesLengthHTML)}`;
       const divForArrowAndParagraph = createAndAppendDivWithClass(parentDiv, 'arrow-and-paragraph-wrapper');
 
       divForArrowAndParagraph.addEventListener('click', () => {
