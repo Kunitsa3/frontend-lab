@@ -1,4 +1,4 @@
-loadOneByOneCallback();
+// loadOneByOneCallback();
 // SameTimeLoadingCallback();
 // SameTimeLoadingAndShowFirstCallback();
 
@@ -12,4 +12,4 @@ loadOneByOneCallback();
 
 // loadOneByOneGenerator();
 // SameTimeLoadingGenerator();
-// SameTimeLoadingAndShowFirstGenerator();
+SameTimeLoadingAndShowFirstGenerator();

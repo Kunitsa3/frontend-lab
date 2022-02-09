@@ -1,66 +1,39 @@
-function loadOneByOnePromise() {
-  createAndAppendSpinnerDiv(createNewId());
-
-  fetch(url)
-    .then(response => {
-      return response.json();
-    })
-    .then(response => createAndAppendImage(response[0].url, startId))
-    .then(() => {
-      createAndAppendSpinnerDiv(createNewId());
-      return fetch(url);
-    })
-    .then(response => {
-      return response.json();
-    })
-    .then(response => createAndAppendImage(response[0].url, startId))
-    .then(() => {
-      createAndAppendSpinnerDiv(createNewId());
-      return fetch(url);
-    })
-    .then(response => {
-      return response.json();
-    })
-    .then(response => createAndAppendImage(response[0].url, startId))
-    .then(() => {
-      createAndAppendSpinnerDiv(createNewId());
-      return fetch(url);
-    })
-    .then(response => {
-      return response.json();
-    })
-    .then(response => createAndAppendImage(response[0].url, startId))
-    .then(() => {
-      createAndAppendSpinnerDiv(createNewId());
-      return fetch(url);
-    })
-    .then(response => {
-      return response.json();
-    })
-    .then(response => createAndAppendImage(response[0].url, startId))
-    .catch(error => {
-      alert(error);
-    });
-}
-
-function SameTimeLoadingPromise() {
-  for (let i = 0; i < 5; i++) {
-    requests.push(fetch(url));
+const loadOneByOnePromise = () => {
+  const load = url => {
     createAndAppendSpinnerDiv(createNewId());
-  }
 
-  Promise.all(requests)
-    .then(responses => Promise.all(responses.map(r => r.json())))
-    .then(responses => responses.forEach((response, index) => createAndAppendImage(response[0].url, index + 1)))
+    return fetch(url)
+      .then(response => response.json())
+      .then(response => createAndAppendImage(response[0].url, startId));
+  };
+
+  load(url)
+    .then(() => load(url))
+    .then(() => load(url))
+    .then(() => load(url))
+    .then(() => load(url))
     .catch(error => {
       alert(error);
     });
-}
+};
 
-function SameTimeLoadingAndShowFirstPromise() {
-  for (let i = 0; i < 5; i++) {
+const SameTimeLoadingPromise = () => {
+  urls.forEach(url => {
+    responses.push(fetch(url).then(r => r.json()));
+    createAndAppendSpinnerDiv(createNewId());
+  });
+
+  Promise.all(responses)
+    .then(contents => contents.forEach((content, index) => createAndAppendImage(content[0].url, index + 1)))
+    .catch(error => {
+      alert(error);
+    });
+};
+
+const SameTimeLoadingAndShowFirstPromise = () => {
+  urls.forEach(url => {
     requests.push(fetch(url));
-  }
+  });
 
   createAndAppendSpinnerDiv(createNewId());
 
@@ -68,4 +41,4 @@ function SameTimeLoadingAndShowFirstPromise() {
     .then(response => response.json())
     .then(response => createAndAppendImage(response[0].url, startId))
     .catch(error => alert(error));
-}
+};

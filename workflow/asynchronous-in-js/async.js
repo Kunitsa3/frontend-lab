@@ -1,5 +1,5 @@
-function loadOneByOneAsync() {
-  async function loadAndInnerImage() {
+const loadOneByOneAsync = async () => {
+  const loadAndInnerImage = async () => {
     try {
       const id = createNewId();
       createAndAppendSpinnerDiv(id);
@@ -9,44 +9,39 @@ function loadOneByOneAsync() {
     } catch (err) {
       alert(err);
     }
+  };
+
+  for (let i = 0; i < urls.length; i++) {
+    await loadAndInnerImage(urls[i]);
   }
+};
 
-  async function loadImages() {
-    await loadAndInnerImage();
-    await loadAndInnerImage();
-    await loadAndInnerImage();
-    await loadAndInnerImage();
-    await loadAndInnerImage();
-  }
-
-  loadImages();
-}
-
-function SameTimeLoadingAsync() {
-  for (let i = 0; i < 5; i++) {
-    requests.push(fetch(url));
+const SameTimeLoadingAsync = () => {
+  urls.forEach(url => {
+    responses.push(fetch(url).then(response => response.json()));
     createAndAppendSpinnerDiv(createNewId());
-  }
+  });
 
-  (async function getImages() {
+  const getImages = async () => {
     try {
-      const responses = await Promise.all(requests);
-      const content = await Promise.all(responses.map(response => response.json()));
+      const content = await Promise.all(responses);
       content.forEach((content, index) => createAndAppendImage(content[0].url, index + 1));
     } catch (error) {
       alert(error);
     }
-  })();
-}
+  };
 
-function SameTimeLoadingAndShowFirstAsync() {
+  getImages();
+};
+
+const SameTimeLoadingAndShowFirstAsync = () => {
   createAndAppendSpinnerDiv(createNewId());
 
-  for (let i = 0; i < 5; i++) {
+  urls.forEach(url => {
     requests.push(fetch(url));
-  }
+  });
 
-  async function getImages() {
+  const getImages = async () => {
     try {
       const response = await Promise.race(requests);
       const content = await response.json();
@@ -54,7 +49,7 @@ function SameTimeLoadingAndShowFirstAsync() {
     } catch (error) {
       alert(error);
     }
-  }
+  };
 
   getImages();
-}
+};

@@ -1,107 +1,95 @@
-function loadOneByOneCallback() {
-  function loadImage(url, callback, whatToCall) {
+const loadOneByOneCallback = () => {
+  const loadImage = (url, whatToCall) => {
     createAndAppendSpinnerDiv(createNewId());
 
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url);
-    xhr.onload = function () {
-      const src = JSON.parse(xhr.response)[0].url;
-      callback(null, src, whatToCall);
+    xhr.onload = () => {
+      const src = JSON.parse(xhr.response || null)?.[0]?.url;
+      createImage(null, src, whatToCall);
     };
-    xhr.onerror = function () {
-      callback(error);
+    xhr.onerror = () => {
+      createImage(error);
     };
     xhr.send();
-  }
+  };
 
-  function createImage(error, src, collLoadImage) {
+  const createImage = (error, src, cb) => {
     if (error) {
       alert(error);
     } else {
       createAndAppendImage(src, startId);
-      collLoadImage?.();
+      cb && cb();
     }
-  }
+  };
 
-  loadImage(url, createImage, () =>
-    loadImage(url, createImage, () =>
-      loadImage(url, createImage, () => loadImage(url, createImage, () => loadImage(url, createImage))),
-    ),
-  );
-}
+  loadImage(url, () => loadImage(url, () => loadImage(url, () => loadImage(url, () => loadImage(url)))));
+};
 
-function SameTimeLoadingCallback() {
+const SameTimeLoadingCallback = () => {
   const callBacksQueue = [];
 
-  function loadImage(url, callback) {
+  const loadImage = url => {
     const currentId = createNewId();
     createAndAppendSpinnerDiv(currentId);
 
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url);
-    xhr.onload = function () {
-      const src = JSON.parse(xhr.response)[0].url;
+    xhr.onload = () => {
+      const src = JSON.parse(xhr.response || null)?.[0]?.url;
       callBacksQueue.push(() => {
-        callback(null, src, currentId);
+        createImage(null, src, currentId);
       });
       if (callBacksQueue.length === 5) {
         callBacksQueue.forEach(callback => callback());
       }
     };
-    xhr.onerror = function () {
-      callback(error);
+    xhr.onerror = () => {
+      createImage(error);
     };
     xhr.send();
-  }
+  };
 
-  function createImage(error, src, id) {
+  const createImage = (error, src, id) => {
     if (error) {
       alert(error);
     } else {
       createAndAppendImage(src, id);
     }
-  }
+  };
 
-  loadImage(url, createImage);
-  loadImage(url, createImage);
-  loadImage(url, createImage);
-  loadImage(url, createImage);
-  loadImage(url, createImage);
-}
+  urls.forEach(url => loadImage(url));
+};
 
-function SameTimeLoadingAndShowFirstCallback() {
-  let flag = false;
+const SameTimeLoadingAndShowFirstCallback = () => {
+  let isResponseOnload = false;
 
   createAndAppendSpinnerDiv(createNewId());
 
-  function loadImage(url, callback) {
+  const loadImage = url => {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', url);
 
     xhr.onload = function () {
-      if (!flag) {
-        flag = true;
-        const src = JSON.parse(xhr.response)[0].url;
-        callback(null, src);
+      if (!isResponseOnload) {
+        isResponseOnload = true;
+        const src = JSON.parse(xhr.response || null)?.[0]?.url;
+        createImage(null, src);
       }
     };
     xhr.onerror = function () {
-      callback(new Error('Невозможно загрузить изображение'));
+      createImage(new Error('Невозможно загрузить изображение'));
     };
     xhr.send();
-  }
+  };
 
-  function createImage(error, src) {
+  const createImage = (error, src) => {
     if (error) {
       alert(error);
     } else {
       createAndAppendImage(src, startId);
     }
-  }
+  };
 
-  loadImage(url, createImage);
-  loadImage(url, createImage);
-  loadImage(url, createImage);
-  loadImage(url, createImage);
-  loadImage(url, createImage);
-}
+  urls.forEach(url => loadImage(url));
+};

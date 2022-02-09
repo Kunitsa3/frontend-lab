@@ -1,61 +1,89 @@
-function loadOneByOneGenerator() {
-  async function* generateImage() {
-    for (let i = 0; i <= 4; i++) {
-      createAndAppendSpinnerDiv(createNewId());
-      const response = await fetch(url);
-      content = await response.json();
-      createAndAppendImage(content[0].url, startId);
-
-      yield i;
-    }
-  }
-
-  (async () => {
-    try {
-      let generator = generateImage();
-      for await (let value of generator) {
-      }
-    } catch (error) {
-      alert(error);
-    }
-  })();
-}
-
-function SameTimeLoadingGenerator() {
-  for (let i = 0; i < 5; i++) {
-    requests.push(fetch(url));
+const loadOneByOneGenerator = () => {
+  const getResponse = async as => {
     createAndAppendSpinnerDiv(createNewId());
+    const response = await fetch(as);
+    return await response.json();
+  };
+
+  function* generateImage() {
+    for (const url of urls) {
+      const result = yield getResponse(url);
+      createAndAppendImage(result[0].url, startId);
+    }
   }
 
-  function* generateSequence() {
-    yield Promise.all(requests);
+  let generator = generateImage();
+
+  const run = (generator, result) => {
+    let currentResult = generator.next(result);
+
+    if (!currentResult.done) {
+      currentResult.value
+        .then(content => run(generator, content))
+        .catch(error => {
+          alert(error);
+        });
+    }
+  };
+
+  run(generator);
+};
+
+const SameTimeLoadingGenerator = () => {
+  const getResponse = async as => {
+    createAndAppendSpinnerDiv(createNewId());
+    const response = await fetch(as);
+    return await response.json();
+  };
+
+  function* generateImage() {
+    let result = yield Promise.all(urls.map(url => getResponse(url)));
+    result.forEach((response, index) => createAndAppendImage(response[0].url, index + 1));
   }
 
-  generateSequence()
-    .next()
-    .value.then(responses => Promise.all(responses.map(r => r.json())))
-    .then(responses => responses.forEach((response, index) => createAndAppendImage(response[0].url, index + 1)))
-    .catch(error => {
-      alert(error);
-    });
-}
+  let generator = generateImage();
 
-function SameTimeLoadingAndShowFirstGenerator() {
+  const run = (generator, result) => {
+    let currentResult = generator.next(result);
+
+    if (!currentResult.done) {
+      currentResult.value
+        .then(content => run(generator, content))
+        .catch(error => {
+          alert(error);
+        });
+    }
+  };
+
+  run(generator);
+};
+
+const SameTimeLoadingAndShowFirstGenerator = () => {
   createAndAppendSpinnerDiv(createNewId());
 
-  for (let i = 0; i < 5; i++) {
-    requests.push(fetch(url));
+  const getResponse = async as => {
+    const response = await fetch(as);
+    return await response.json();
+  };
+
+  function* generateImage() {
+    let result = yield Promise.race(urls.map(url => getResponse(url)));
+    createAndAppendImage(result[0].url, startId);
   }
 
-  function* generateSequence() {
-    yield Promise.race(requests);
-  }
+  let generator = generateImage();
 
-  generateSequence()
-    .next()
-    .value.then(response => response.json())
-    .then(response => createAndAppendImage(response[0].url, startId))
-    .catch(error => {
-      alert(error);
-    });
-}
+  const run = (generator, result) => {
+    let currentResult = generator.next(result);
+
+    if (!currentResult.done) {
+      currentResult.value
+        .then(content => run(generator, content))
+        .catch(error => {
+          alert(error);
+        });
+    }
+  };
+
+  run(generator);
+};

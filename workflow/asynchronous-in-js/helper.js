@@ -2,13 +2,13 @@ const url = 'https://api.thecatapi.com/v1/images/search';
 const imagesWrapper = document.querySelector('.images-wrapper');
 
 let startId = 0;
+let responses = [];
 let requests = [];
+const urls = Array(5).fill(url);
 
-function createNewId() {
-  return (startId += 1);
-}
+const createNewId = () => (startId += 1);
 
-function createAndAppendSpinnerDiv(id) {
+const createAndAppendSpinnerDiv = id => {
   const imageWrapper = document.createElement('div');
   imageWrapper.className = 'image-wrapper';
   imageWrapper.id = `image-${id}`;
@@ -22,14 +22,14 @@ function createAndAppendSpinnerDiv(id) {
   const spinner = document.createElement('div');
   spinner.className = 'spinner';
   spinnerWrapper.append(spinner);
-}
+};
 
-function createAndAppendImage(src, id) {
+const createAndAppendImage = (src, id) => {
   let img = document.createElement('img');
 
-  img.onload = function () {
+  img.onload = () => {
     document.querySelector(`#spinner-${id}`).remove();
     document.querySelector(`#image-${id}`).append(img);
   };
   img.src = src;
-}
+};
