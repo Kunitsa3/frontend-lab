@@ -1,4 +1,4 @@
-import './styles/style.css';
+import './styles/style.scss';
 
 const jsonWrapper = document.querySelector('.json-wrapper');
 const buildTreeButton = document.querySelector('.build-tree-btn');
