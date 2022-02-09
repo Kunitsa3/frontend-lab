@@ -9,7 +9,7 @@ The next function call with the same arguments should return the value from the 
 
 E.g.
 
-```
+```javascript
 cachedFactorial = cacher.withCache(factorial);
 const a = cachedFactorial(someBigNumber); // => very long calculations...
 const b = cachedFactorial(someBigNumber); // => the result is returned from the cache - very quickly,
