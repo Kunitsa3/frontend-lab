@@ -49,7 +49,15 @@ module.exports = {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
-      { test: /\.ttf$/, use: ['file-loader'] },
+      {
+        test: /\.less$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
+      { test: /\.ttf$/, type: 'asset/resource' },
       {
         test: /\.js$/,
         exclude: /node_modules/,
