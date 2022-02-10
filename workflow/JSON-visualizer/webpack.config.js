@@ -29,6 +29,11 @@ const getPlugins = () => {
         threshold: 0,
         deleteOriginalAssets: true,
       }),
+      new CompressionPlugin({
+        algorithm: 'gzip',
+        threshold: 0,
+        deleteOriginalAssets: true,
+      }),
     );
   }
 
@@ -37,7 +42,7 @@ const getPlugins = () => {
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
-  entry: ['@babel/polyfill', './index.js'],
+  entry: ['./index.js'],
   output: { filename: '[contenthash].js', path: path.resolve(__dirname, 'dist') },
   resolve: { alias: { '@assets': path.resolve(__dirname, 'src/assets') } },
   optimization: optimization(),
@@ -49,11 +54,11 @@ module.exports = {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
-      { test: /\.ttf$/, use: ['file-loader'] },
+      { test: /\.ttf$/, type: 'asset/resource' },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: { loader: 'babel-loader', options: { presets: ['@babel/preset-env'] } },
+        use: { loader: 'babel-loader' },
       },
     ],
   },
