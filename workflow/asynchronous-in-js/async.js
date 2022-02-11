@@ -7,7 +7,7 @@ const loadOneByOneAsync = async () => {
       content = await response.json();
       createAndAppendImage(content[0].url, id);
     } catch (err) {
-      alert(err);
+      handleErrors(err);
     }
   };
 
@@ -27,7 +27,7 @@ const SameTimeLoadingAsync = () => {
       const content = await Promise.all(responses);
       content.forEach((content, index) => createAndAppendImage(content[0].url, index + 1));
     } catch (error) {
-      alert(error);
+      handleErrors(error);
     }
   };
 
@@ -47,7 +47,7 @@ const SameTimeLoadingAndShowFirstAsync = () => {
       const content = await response.json();
       createAndAppendImage(content[0].url, startId);
     } catch (error) {
-      alert(error);
+      handleErrors(error);
     }
   };
 

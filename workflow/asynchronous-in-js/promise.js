@@ -12,9 +12,7 @@ const loadOneByOnePromise = () => {
     .then(() => load(url))
     .then(() => load(url))
     .then(() => load(url))
-    .catch(error => {
-      alert(error);
-    });
+    .catch(handleErrors);
 };
 
 const SameTimeLoadingPromise = () => {
@@ -25,9 +23,7 @@ const SameTimeLoadingPromise = () => {
 
   Promise.all(responses)
     .then(contents => contents.forEach((content, index) => createAndAppendImage(content[0].url, index + 1)))
-    .catch(error => {
-      alert(error);
-    });
+    .catch(handleErrors);
 };
 
 const SameTimeLoadingAndShowFirstPromise = () => {
@@ -40,5 +36,5 @@ const SameTimeLoadingAndShowFirstPromise = () => {
   Promise.race(requests)
     .then(response => response.json())
     .then(response => createAndAppendImage(response[0].url, startId))
-    .catch(error => alert(error));
+    .catch(handleErrors);
 };

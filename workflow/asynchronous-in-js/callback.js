@@ -6,21 +6,17 @@ const loadOneByOneCallback = () => {
     xhr.open('GET', url);
     xhr.onload = () => {
       const src = JSON.parse(xhr.response || null)?.[0]?.url;
-      createImage(null, src, whatToCall);
+      createImage(src, whatToCall);
     };
-    xhr.onerror = () => {
-      createImage(error);
+    xhr.onerror = error => {
+      handleErrors(error);
     };
     xhr.send();
   };
 
-  const createImage = (error, src, cb) => {
-    if (error) {
-      alert(error);
-    } else {
-      createAndAppendImage(src, startId);
-      cb && cb();
-    }
+  const createImage = (src, cb) => {
+    createAndAppendImage(src, startId);
+    cb && cb();
   };
 
   loadImage(url, () => loadImage(url, () => loadImage(url, () => loadImage(url, () => loadImage(url)))));
@@ -38,27 +34,23 @@ const SameTimeLoadingCallback = () => {
     xhr.onload = () => {
       const src = JSON.parse(xhr.response || null)?.[0]?.url;
       callBacksQueue.push(() => {
-        createImage(null, src, currentId);
+        createImage(src, currentId);
       });
-      if (callBacksQueue.length === 5) {
+      if (callBacksQueue.length === urls.length) {
         callBacksQueue.forEach(callback => callback());
       }
     };
-    xhr.onerror = () => {
-      createImage(error);
+    xhr.onerror = error => {
+      handleErrors(error);
     };
     xhr.send();
   };
 
-  const createImage = (error, src, id) => {
-    if (error) {
-      alert(error);
-    } else {
-      createAndAppendImage(src, id);
-    }
+  const createImage = (src, id) => {
+    createAndAppendImage(src, id);
   };
 
-  urls.forEach(url => loadImage(url));
+  urls.forEach(loadImage);
 };
 
 const SameTimeLoadingAndShowFirstCallback = () => {
@@ -70,25 +62,21 @@ const SameTimeLoadingAndShowFirstCallback = () => {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', url);
 
-    xhr.onload = function () {
+    xhr.onload = () => {
       if (!isResponseOnload) {
         isResponseOnload = true;
         const src = JSON.parse(xhr.response || null)?.[0]?.url;
-        createImage(null, src);
+        createImage(src);
       }
     };
-    xhr.onerror = function () {
-      createImage(new Error('Невозможно загрузить изображение'));
+    xhr.onerror = error => {
+      handleErrors(error);
     };
     xhr.send();
   };
 
-  const createImage = (error, src) => {
-    if (error) {
-      alert(error);
-    } else {
-      createAndAppendImage(src, startId);
-    }
+  const createImage = src => {
+    createAndAppendImage(src, startId);
   };
 
   urls.forEach(url => loadImage(url));

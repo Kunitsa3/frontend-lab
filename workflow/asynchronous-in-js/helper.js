@@ -8,6 +8,10 @@ const urls = Array(5).fill(url);
 
 const createNewId = () => (startId += 1);
 
+const handleErrors = error => {
+  alert(error);
+};
+
 const createAndAppendSpinnerDiv = id => {
   const imageWrapper = document.createElement('div');
   imageWrapper.className = 'image-wrapper';

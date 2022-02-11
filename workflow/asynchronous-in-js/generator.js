@@ -1,7 +1,7 @@
 const loadOneByOneGenerator = () => {
-  const getResponse = async as => {
+  const getResponse = async urlToFetch => {
     createAndAppendSpinnerDiv(createNewId());
-    const response = await fetch(as);
+    const response = await fetch(urlToFetch);
     return await response.json();
   };
 
@@ -18,11 +18,7 @@ const loadOneByOneGenerator = () => {
     let currentResult = generator.next(result);
 
     if (!currentResult.done) {
-      currentResult.value
-        .then(content => run(generator, content))
-        .catch(error => {
-          alert(error);
-        });
+      currentResult.value.then(content => run(generator, content)).catch(handleErrors);
     }
   };
 
@@ -30,9 +26,9 @@ const loadOneByOneGenerator = () => {
 };
 
 const SameTimeLoadingGenerator = () => {
-  const getResponse = async as => {
+  const getResponse = async urlToFetch => {
     createAndAppendSpinnerDiv(createNewId());
-    const response = await fetch(as);
+    const response = await fetch(urlToFetch);
     return await response.json();
   };
 
@@ -47,11 +43,7 @@ const SameTimeLoadingGenerator = () => {
     let currentResult = generator.next(result);
 
     if (!currentResult.done) {
-      currentResult.value
-        .then(content => run(generator, content))
-        .catch(error => {
-          alert(error);
-        });
+      currentResult.value.then(content => run(generator, content)).catch(handleErrors);
     }
   };
 
@@ -61,8 +53,8 @@ const SameTimeLoadingGenerator = () => {
 const SameTimeLoadingAndShowFirstGenerator = () => {
   createAndAppendSpinnerDiv(createNewId());
 
-  const getResponse = async as => {
-    const response = await fetch(as);
+  const getResponse = async urlToFetch => {
+    const response = await fetch(urlToFetch);
     return await response.json();
   };
 
@@ -77,11 +69,7 @@ const SameTimeLoadingAndShowFirstGenerator = () => {
     let currentResult = generator.next(result);
 
     if (!currentResult.done) {
-      currentResult.value
-        .then(content => run(generator, content))
-        .catch(error => {
-          alert(error);
-        });
+      currentResult.value.then(content => run(generator, content)).catch(handleErrors);
     }
   };
 
