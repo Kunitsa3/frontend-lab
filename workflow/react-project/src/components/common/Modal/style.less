@@ -1,6 +1,7 @@
-@import "../../../styles/fonts.less";
-@import "../../../styles/colors.less";
-@import "../../../styles/mixins.less";
+@import "~@styles/fonts.less";
+@import "~@styles/colors.less";
+@import "~@styles/mixins.less";
+@import "~@styles/constants.less";
 
 .dark-background {
   position: fixed;
@@ -8,7 +9,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 1;
+  z-index: 3;
   background-color: rgb(0 0 0 / 38%);
 }
 
@@ -35,7 +36,7 @@
   border-radius: 10px 10px 0 0;
   background: @green-color;
 
-  @media (min-width: 768px) {
+  @media (min-width: @width-768) {
     height: 80px;
     padding: 23px 26px 22px 30px;
   }
@@ -48,7 +49,7 @@
   line-height: 40px;
   color: @light-green-color;
 
-  @media (min-width: 768px) {
+  @media (min-width: @width-768) {
     font-size: 32px;
   }
 }
@@ -58,7 +59,7 @@
   font-size: 28px;
   cursor: pointer;
 
-  @media (min-width: 768px) {
+  @media (min-width: @width-768) {
     font-size: 38px;
   }
 }

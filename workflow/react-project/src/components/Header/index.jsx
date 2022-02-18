@@ -1,9 +1,12 @@
-import './style.less';
+import { useState } from 'react';
+
 import { faMartiniGlassCitrus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Button from '../generic/Button';
-import { useState } from 'react';
-import Modal from '../generic/Modal';
+
+import Button from '../common/Button';
+import Modal from '../common/Modal';
+
+import './style.less';
 
 const Header = () => {
   const [isAuthenticationModalOpened, setAuthenticationModalOpened] = useState(false);

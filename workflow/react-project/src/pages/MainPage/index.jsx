@@ -1,7 +1,9 @@
-import './style.less';
-import Glass from '../../assets/img/GlassWithCocktail.jpg';
-import Modal from '../../components/generic/Modal';
 import { useState } from 'react';
+
+import Glass from '@assets/img/GlassWithCocktail.jpg';
+import Modal from '@components/common/Modal';
+
+import './style.less';
 
 const quotes = [
   `“I cook with wine, sometimes I even add it to the food.” — W.C. Fields`,

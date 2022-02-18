@@ -1,9 +1,11 @@
-import './style.less';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactDOM from 'react-dom';
 
-const Modal = ({ title, subtitle, content, setModalClosed }) =>
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import './style.less';
+
+const Modal = ({ children, title, subtitle, setModalClosed }) =>
   ReactDOM.createPortal(
     <div className="dark-background">
       <div className="height-100" onClick={setModalClosed} />
@@ -12,7 +14,7 @@ const Modal = ({ title, subtitle, content, setModalClosed }) =>
           <p className="modal-title">{title}</p>
           <FontAwesomeIcon icon={faXmark} className="modal-close-icon" onClick={setModalClosed} />
         </div>
-        <div className="modal-content">{content}</div>
+        <div className="modal-content">{children}</div>
       </div>
     </div>,
     document.body,
