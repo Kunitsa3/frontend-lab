@@ -45,7 +45,15 @@ module.exports = {
   devtool: 'source-map',
   entry: ['./index.jsx'],
   output: { filename: '[contenthash].js', path: path.resolve(__dirname, 'dist') },
-  resolve: { alias: { '@assets': path.resolve(__dirname, 'src/assets') }, extensions: ['.js', '.jsx'] },
+  resolve: {
+    alias: {
+      '@assets': path.resolve(__dirname, 'src/assets'),
+      '@components': path.resolve(__dirname, 'src/components'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
+      '@styles': path.resolve(__dirname, 'src/styles'),
+    },
+    extensions: ['.js', '.jsx'],
+  },
   optimization: optimization(),
   devServer: { port: 8000, hot: isDev },
   plugins: getPlugins(),
