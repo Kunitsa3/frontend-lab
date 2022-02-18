@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { faMartiniGlassCitrus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { changeModalKey } from '../../store';
 
 import Button from '../common/Button';
 import Modal from '../common/Modal';
@@ -9,9 +11,13 @@ import Modal from '../common/Modal';
 import './style.less';
 
 const Header = () => {
+  const dispatch = useDispatch();
   const [isAuthenticationModalOpened, setAuthenticationModalOpened] = useState(false);
 
-  const handleModalStateChange = () => setAuthenticationModalOpened(!isAuthenticationModalOpened);
+  const handleModalStateChange = modalKey => {
+    setAuthenticationModalOpened(!isAuthenticationModalOpened);
+    dispatch(changeModalKey(modalKey));
+  };
 
   return (
     <header className="header-wrapper">
@@ -19,8 +25,10 @@ const Header = () => {
         <FontAwesomeIcon icon={faMartiniGlassCitrus} className="logo" />
         <p className="logo-title">Cocktail App</p>
       </div>
-      <Button onClick={handleModalStateChange}>Get Started</Button>
-      {isAuthenticationModalOpened && <Modal title="Authentication" setModalClosed={handleModalStateChange} />}
+      <Button onClick={() => handleModalStateChange('Authentication')}>Get Started</Button>
+      {isAuthenticationModalOpened && (
+        <Modal title="Authentication" setModalClosed={() => handleModalStateChange(null)} />
+      )}
     </header>
   );
 };

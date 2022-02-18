@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { changeModalKey } from '../../store';
+import fetchRandomCocktail from '../../store/appConfigurations/asyncThunks';
+import ModalContent from '../../components/generic/Modal/ModalContent';
 
 import Glass from '@assets/img/GlassWithCocktail.jpg';
 import Modal from '@components/common/Modal';
@@ -12,9 +16,18 @@ const quotes = [
 ];
 
 const MainPage = () => {
+  const dispatch = useDispatch();
   const [isCocktailModalOpened, setCocktailModalOpened] = useState(false);
-  const onGlassImageClick = () => {
+
+  const onGlassPictureClick = () => {
+    dispatch(changeModalKey('Random Cocktail'));
+    dispatch(fetchRandomCocktail());
     setCocktailModalOpened(!isCocktailModalOpened);
+  };
+
+  const setModalClosed = () => {
+    setCocktailModalOpened(!isCocktailModalOpened);
+    dispatch(changeModalKey(null));
   };
 
   return (
@@ -29,13 +42,17 @@ const MainPage = () => {
           ))}
         </div>
         <div className="glass-image-wrapper">
-          <img src={Glass} className="glass-image" onClick={onGlassImageClick}></img>
-          {/* <p className="image-subtitle">
+          <img src={Glass} className="glass-image" onClick={onGlassPictureClick}></img>
+          <p className="image-subtitle">
             Press on glass to get a <br /> random cocktail
-          </p> */}
+          </p>
         </div>
       </div>
-      {isCocktailModalOpened && <Modal title="Random Cocktail" setModalClosed={onGlassImageClick} />}
+      {isCocktailModalOpened && (
+        <Modal title="Random Cocktail" setModalClosed={setModalClosed}>
+          <ModalContent />
+        </Modal>
+      )}
     </div>
   );
 };
