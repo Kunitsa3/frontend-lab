@@ -14,8 +14,8 @@
 }
 
 .modal-wrapper {
-  width: 80vw;
-  height: 60vh;
+  width: 90vw;
+  height: 70vh;
   z-index: 3;
   position: fixed;
   top: 50%;
@@ -45,18 +45,19 @@
 .modal-title {
   .quicksand-font;
 
-  font-size: 24px;
-  line-height: 40px;
+  font-size: 20px;
+  line-height: 20px;
   color: @light-green-color;
 
   @media (min-width: @width-768) {
     font-size: 32px;
+    line-height: 40px;
   }
 }
 
 .modal-close-icon {
   color: @light-green-color;
-  font-size: 28px;
+  font-size: 24px;
   cursor: pointer;
 
   @media (min-width: @width-768) {
@@ -68,7 +69,22 @@
   background-color: #e0e0e0;
   height: 90%;
   border-radius: 0 0 10px 10px;
-  padding: 30px;
+  padding: 10px;
+  overflow-y: scroll;
+
+  @media (min-width: @width-768) {
+    padding: 30px;
+  }
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 6px;
+  background-color: #c4c4c4;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: #555;
+  height: 300px;
 }
 
 .height-100 {

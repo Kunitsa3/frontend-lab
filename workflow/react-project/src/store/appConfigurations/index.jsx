@@ -1,9 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import fetchRandomCocktail from './asyncThunks';
 
 const initialState = {
   activeModal: null,
-  randomCocktail: [],
 };
 
 const appConfigurationsSlice = createSlice({
@@ -12,11 +10,6 @@ const appConfigurationsSlice = createSlice({
   reducers: {
     changeModalKey: (state, action) => {
       state.activeModal = action.payload;
-    },
-  },
-  extraReducers: {
-    [fetchRandomCocktail.fulfilled]: (state, action) => {
-      state.randomCocktail = action.payload;
     },
   },
 });

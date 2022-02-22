@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { changeModalKey } from '../../store';
-import fetchRandomCocktail from '../../store/appConfigurations/asyncThunks';
-import ModalContent from '../../components/generic/Modal/ModalContent';
+
+import { changeModalKey, deleteRandomCocktailInformation } from '../../store';
+import fetchRandomCocktail from '../../store/randomCocktail/asyncThunks';
+import ModalContent from '@components/common/Modal/ModalContent';
 
 import Glass from '@assets/img/GlassWithCocktail.jpg';
 import Modal from '@components/common/Modal';
@@ -28,6 +29,7 @@ const MainPage = () => {
   const setModalClosed = () => {
     setCocktailModalOpened(!isCocktailModalOpened);
     dispatch(changeModalKey(null));
+    dispatch(deleteRandomCocktailInformation());
   };
 
   return (
@@ -43,9 +45,9 @@ const MainPage = () => {
         </div>
         <div className="glass-image-wrapper">
           <img src={Glass} className="glass-image" onClick={onGlassPictureClick}></img>
-          <p className="image-subtitle">
+          {/* <p className="image-subtitle">
             Press on glass to get a <br /> random cocktail
-          </p>
+          </p> */}
         </div>
       </div>
       {isCocktailModalOpened && (

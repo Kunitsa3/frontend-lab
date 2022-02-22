@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './style.less';
 
-const Modal = ({ children, title, subtitle, setModalClosed }) =>
+const Modal = ({ children, title, setModalClosed }) =>
   ReactDOM.createPortal(
     <div className="dark-background">
       <div className="height-100" onClick={setModalClosed} />
