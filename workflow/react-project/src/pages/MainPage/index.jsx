@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { changeModalKey, deleteRandomCocktailInformation } from '../../store';
 import fetchRandomCocktail from '../../store/randomCocktail/asyncThunks';
-import ModalContent from '@components/common/Modal/ModalContent';
+import RandomCocktail from '@components/common/Modal/ModalContent/RandomCocktail';
 
 import Glass from '@assets/img/GlassWithCocktail.jpg';
 import Modal from '@components/common/Modal';
@@ -52,7 +52,7 @@ const MainPage = () => {
       </div>
       {isCocktailModalOpened && (
         <Modal title="Random Cocktail" setModalClosed={setModalClosed}>
-          <ModalContent />
+          <RandomCocktail />
         </Modal>
       )}
     </div>

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './style.less';
 
-const ModalContent = () => {
+const RandomCocktail = () => {
   const randomCocktailStatus = useSelector(state => state.randomCocktail?.status);
   const randomCocktailDetails = useSelector(state => state.randomCocktail?.details)?.drinks?.[0];
   const randomCocktail = Object.entries(randomCocktailDetails || {});
@@ -53,4 +53,4 @@ const ModalContent = () => {
   );
 };
 
-export default ModalContent;
+export default RandomCocktail;
