@@ -5,8 +5,9 @@ import { faMartiniGlassCitrus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { changeModalKey } from '@store';
 
-import Button from '@common/Button';
-import Modal from '@common/Modal';
+import Button from '../common/Button';
+import Modal from '../common/Modal';
+import Authentication from '../common/Modal/ModalContent/Authentication';
 
 import './style.less';
 
@@ -27,7 +28,9 @@ const Header = () => {
       </div>
       <Button onClick={() => handleModalStateChange('Authentication')}>Get Started</Button>
       {isAuthenticationModalOpened && (
-        <Modal title="Authentication" setModalClosed={() => handleModalStateChange(null)} />
+        <Modal title="Authentication" setModalClosed={() => handleModalStateChange(null)}>
+          <Authentication />
+        </Modal>
       )}
     </header>
   );

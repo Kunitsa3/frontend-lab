@@ -27,3 +27,32 @@
   font-style: normal;
   font-weight: normal;
 }
+
+.modal-content-title () {
+  .rochester-font;
+
+  font-size: 20px;
+  line-height: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+
+  @media (min-width: @width-768) {
+    font-size: 32px;
+    line-height: 41px;
+    margin-bottom: 45px;
+  }
+}
+
+.input () {
+  width: 100%;
+  height: 30px;
+  background-color: @light-grey-color;
+  padding-left: 15px;
+
+  &::placeholder {
+    .quicksand-font;
+
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
