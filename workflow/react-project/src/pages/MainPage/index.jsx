@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { changeModalKey, deleteRandomCocktailInformation } from '../../store';
-import fetchRandomCocktail from '../../store/randomCocktail/asyncThunks';
-import RandomCocktail from '@components/common/Modal/ModalContent/RandomCocktail';
+import { changeModalKey } from '@store/appConfigurations/action';
+import { fetchRandomCocktail, deleteRandomCocktailInformation } from '@store/randomCocktail/action';
 
 import Glass from '@assets/img/GlassWithCocktail.jpg';
-import Modal from '@components/common/Modal';
 
 import './style.less';
+import RandomCocktailModal from '@components/Modals/RandomCocktailModal';
 
 const quotes = [
   `“I cook with wine, sometimes I even add it to the food.” — W.C. Fields`,
@@ -50,11 +49,7 @@ const MainPage = () => {
           </p> */}
         </div>
       </div>
-      {isCocktailModalOpened && (
-        <Modal title="Random Cocktail" setModalClosed={setModalClosed}>
-          <RandomCocktail />
-        </Modal>
-      )}
+      {isCocktailModalOpened && <RandomCocktailModal setModalClosed={setModalClosed} />}
     </div>
   );
 };

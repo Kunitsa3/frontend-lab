@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import fetchRandomCocktail from './asyncThunks';
+import { fetchRandomCocktail } from './action';
+import { normalizeRandomCocktailData } from './utils';
 
 const initialState = {
-  details: [],
-  status: 'initial',
+  details: {},
+  loading: false,
 };
 
 const randomCocktailSlice = createSlice({
@@ -11,17 +12,37 @@ const randomCocktailSlice = createSlice({
   initialState,
   reducers: {
     deleteRandomCocktailInformation: state => {
-      state.details = [];
-      state.status = 'initial';
+      state.details = {};
     },
   },
   extraReducers: {
     [fetchRandomCocktail.pending]: state => {
-      state.status = 'pending';
+      state.loading = true;
     },
     [fetchRandomCocktail.fulfilled]: (state, action) => {
-      state.details = action.payload;
-      state.status = 'fulfilled';
+      const cocktailData = normalizeRandomCocktailData(action.payload);
+      state.details.cocktailName = cocktailData?.strDrink;
+      state.details.cocktailPicture = cocktailData?.strDrinkThumb;
+      state.details.instructions = cocktailData?.strInstructions;
+
+      state.details.ingredientsDetails = Object.entries(cocktailData || {}).reduce((acc, [key, value]) => {
+        if (key.includes('strIngredient') && value) {
+          const quantityKey = key.replace('strIngredient', 'strMeasure');
+          const measure = cocktailData[quantityKey];
+
+          return [
+            ...acc,
+            {
+              ingredient: value,
+              quantity: measure?.match(/[\s\d/\/]+/)?.join(''),
+              unit: measure?.match(/[a-z ]/gi)?.join(''),
+            },
+          ];
+        }
+        return acc;
+      }, []);
+
+      state.loading = false;
     },
   },
 });

@@ -3,10 +3,10 @@ import { useDispatch } from 'react-redux';
 
 import { faMartiniGlassCitrus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { changeModalKey } from '../../store';
+import { changeModalKey } from '@store';
 
-import Button from '../common/Button';
-import Modal from '../common/Modal';
+import Button from '@common/Button';
+import Modal from '@common/Modal';
 
 import './style.less';
 
