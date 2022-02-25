@@ -46,7 +46,7 @@
     max-height: 600px;
   }
 
-  @media (min-width:@width-1024) {
+  @media (min-width: @width-1024) {
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 60px;
     max-height: 600px;
@@ -54,7 +54,8 @@
 }
 
 .glass-image-wrapper {
-  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .glass-image {
@@ -66,12 +67,12 @@
   }
 
   @media (min-width: @width-768) {
-    max-width: 50vh;
+    max-width: 30vw;
     width: auto;
   }
 
   @media (max-width: width-1024) {
-    max-height: 50vh;
+    max-width: 30vw;
     width: auto;
   }
 }
@@ -79,14 +80,10 @@
 .image-subtitle {
   .asap-font;
 
-  position: absolute;
-  bottom: 30px;
-  left: 330px;
   font-size: 16px;
   line-height: 18px;
   text-align: center;
   color: #555;
-  transform: rotate(-15.81deg);
 }
 
 .quotes-wrapper {
