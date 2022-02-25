@@ -57,7 +57,13 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   optimization: optimization(),
-  devServer: { port: 8000, hot: isDev },
+  devServer: {
+    proxy: {
+      '/api': 'http://stdlab-api.herokuapp.com/api',
+    },
+    port: 8000,
+    hot: isDev,
+  },
   plugins: getPlugins(),
   module: {
     rules: [
