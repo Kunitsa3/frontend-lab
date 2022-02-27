@@ -1,0 +1,55 @@
+@import "~@styles/colors.less";
+@import "~@styles/mixins.less";
+@import "~@styles/fonts.less";
+@import "~@styles/constants.less";
+
+.authentication-password-input-wrapper { margin-bottom: 30px; }
+
+.authentication-subtitle {
+  .quicksand-font;
+
+  font-size: 12px;
+  line-height: 14px;
+  margin-left: 12px;
+  margin-bottom: 4px;
+
+  @media (min-width: @width-768) {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+.password-input-wrapper {
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding-right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.password-input {
+  .input;
+
+  border: none;
+}
+
+.password-icon {
+  cursor: pointer;
+}
+
+.error-message {
+  .quicksand-font;
+
+  margin-top: 10px;
+  color: red;
+  margin-left: 12px;
+  font-size: 14px;
+  line-height: 16px;
+  text-transform: capitalize;
+
+  @media (min-width: @width-768) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}

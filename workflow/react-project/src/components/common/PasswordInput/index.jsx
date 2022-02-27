@@ -5,26 +5,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './style.less';
 
-const PasswordInput = ({ title, name, value, placeholder, onChange }) => {
+const PasswordInput = ({ title, errorsMessage, ...inputProps }) => {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
+
   const onPasswordIconClick = () => setPasswordVisible(!isPasswordVisible);
 
   return (
-    <>
+    <div className="authentication-password-input-wrapper">
       <p className="authentication-subtitle">{title}</p>
       <div className="password-input-wrapper">
-        <input
-          className="password-input"
-          placeholder={placeholder}
-          type={isPasswordVisible ? 'text' : 'password'}
-          name={name}
-          value={value}
-          onChange={onChange}
-          required
-        ></input>
+        <input className="password-input" type={isPasswordVisible ? 'text' : 'password'} {...inputProps}></input>
         <FontAwesomeIcon icon={faEyeSlash} className="password-icon" onClick={onPasswordIconClick} />
       </div>
-    </>
+      {errorsMessage && <p className="error-message">{errorsMessage}</p>}
+    </div>
   );
 };
 

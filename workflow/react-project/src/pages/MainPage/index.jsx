@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import RandomCocktailModal from '@components/Modals/RandomCocktailModal';
 import { changeModalKey } from '@store/appConfigurations/action';
 import { fetchRandomCocktail, deleteRandomCocktailInformation } from '@store/randomCocktail/action';
 
 import Glass from '@assets/img/GlassWithCocktail.jpg';
 
 import './style.less';
-import RandomCocktailModal from '@components/Modals/RandomCocktailModal';
 
 const quotes = [
   `“I cook with wine, sometimes I even add it to the food.” — W.C. Fields`,

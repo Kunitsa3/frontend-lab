@@ -58,9 +58,6 @@ module.exports = {
   },
   optimization: optimization(),
   devServer: {
-    proxy: {
-      '/api': 'http://stdlab-api.herokuapp.com/api',
-    },
     port: 8000,
     hot: isDev,
   },
