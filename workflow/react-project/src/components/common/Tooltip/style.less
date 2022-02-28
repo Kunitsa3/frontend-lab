@@ -1,0 +1,42 @@
+@import "~@styles/fonts.less";
+@import "~@styles/colors.less";
+@import "~@styles/mixins.less";
+@import "~@styles/constants.less";
+
+.tooltip-text-wrapper {
+  .asap-font;
+
+  font-size: 16px;
+  line-height: 18px;
+  color: @dark-green-color;
+  background: #c4c4c4;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, calc(100% + 12px));
+  display: none;
+  justify-content: center;
+  width: 150px;
+  padding: 2px 13px;
+
+  &::before {
+    width: 12px;
+    height: 12px;
+    clip-path: polygon(50% 0, 0 100%, 100% 100%);
+    background: #c4c4c4;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -12px);
+    content: " ";
+  }
+}
+
+.tooltip-wrapper {
+  position: relative;
+
+  &:hover .tooltip-text-wrapper {
+    display: flex;
+  }
+}

@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { tokenizer } from 'acorn';
 import { toast } from 'react-toastify';
 
 export const fetchAuthenticationTokenAfterSignUp = createAsyncThunk(

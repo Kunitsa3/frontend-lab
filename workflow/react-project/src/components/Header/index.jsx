@@ -13,16 +13,42 @@ import Button from '@common/Button';
 import { changeModalKey } from '@store/appConfigurations/action';
 import { selectAuthenticationIsUserLoggedIn } from '@store/authentication/selectors';
 import './style.less';
+import { matchPath, useLocation, useNavigate } from 'react-router';
+import clsx from 'clsx';
+import Tooltip from '../common/Tooltip';
+
+const navigationIcons = [
+  {
+    icon: faMagnifyingGlass,
+    path: '/search',
+    text: 'Search',
+  },
+  {
+    icon: faStar,
+    text: 'Favorite',
+  },
+  {
+    icon: faHouseUser,
+    path: '/home',
+    text: 'Main page',
+  },
+];
 
 const Header = () => {
   const dispatch = useDispatch();
   const isUserLoggedIn = useSelector(selectAuthenticationIsUserLoggedIn);
   const [isAuthenticationModalOpened, setAuthenticationModalOpened] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleModal = modalKey => {
     const willOpened = !isAuthenticationModalOpened;
     setAuthenticationModalOpened(willOpened);
     dispatch(changeModalKey(willOpened ? modalKey : null));
+  };
+
+  const isIconActive = path => {
+    return !!matchPath(path, location.pathname);
   };
 
   return (
@@ -35,9 +61,16 @@ const Header = () => {
         <Button onClick={() => toggleModal('Authentication')}>Get Started</Button>
       ) : (
         <div className="header-icons-wrapper">
-          <FontAwesomeIcon icon={faMagnifyingGlass} className="header-icon" />
-          <FontAwesomeIcon icon={faStar} className="header-icon" />
-          <FontAwesomeIcon icon={faHouseUser} className="header-icon" />
+          {navigationIcons.map(({ icon, path, text }, index) => (
+            <Tooltip text={text}>
+              <FontAwesomeIcon
+                key={index}
+                icon={icon}
+                className={clsx('header-icon', path && isIconActive(path) && 'active')}
+                onClick={path && (() => navigate(path))}
+              />
+            </Tooltip>
+          ))}
         </div>
       )}
 
