@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchAuthenticationTokenAfterSignUp, fetchAuthenticationTokenAfterSignIn } from './action';
 
 const initialState = {
-  token: localStorage.getItem('token') || '',
+  isUserLoggedIn: !!localStorage.getItem('token'),
   loading: false,
   errorMessage: '',
 };
@@ -13,11 +13,11 @@ const authenticationSlice = createSlice({
   extraReducers: {
     [fetchAuthenticationTokenAfterSignUp.pending]: state => {
       state.loading = true;
-      state.token = '';
+      state.isUserLoggedIn = false;
       state.errorMessage = '';
     },
-    [fetchAuthenticationTokenAfterSignUp.fulfilled]: (state, action) => {
-      state.token = action.payload;
+    [fetchAuthenticationTokenAfterSignUp.fulfilled]: state => {
+      state.isUserLoggedIn = true;
       state.loading = false;
     },
     [fetchAuthenticationTokenAfterSignUp.rejected]: (state, action) => {
@@ -27,11 +27,11 @@ const authenticationSlice = createSlice({
 
     [fetchAuthenticationTokenAfterSignIn.pending]: state => {
       state.loading = true;
-      state.token = '';
+      state.isUserLoggedIn = false;
       state.errorMessage = '';
     },
-    [fetchAuthenticationTokenAfterSignIn.fulfilled]: (state, action) => {
-      state.token = action.payload;
+    [fetchAuthenticationTokenAfterSignIn.fulfilled]: state => {
+      state.isUserLoggedIn = true;
       state.loading = false;
     },
     [fetchAuthenticationTokenAfterSignIn.rejected]: (state, action) => {

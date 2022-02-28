@@ -5,14 +5,13 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 
 import Button from '@common/Button';
-import UsernameInput from '@common/UsernameInput';
-import PasswordInput from '@common/PasswordInput';
-import AuthenticationNotification from '@common/AuthenticationNotification';
 import Modal from '@common/Modal';
 import Spinner from '@common/Spinner';
+import Input from '@common/Input';
+import HelperText from '../HelperText';
 
 import { fetchAuthenticationTokenAfterSignUp } from '@store/authentication/asyncThunks';
-import { selectAuthenticationLoading, selectAuthenticationToken } from '@store/authentication/selectors';
+import { selectAuthenticationLoading } from '@store/authentication/selectors';
 import './style.less';
 
 const schema = yup.object().shape({
@@ -24,7 +23,6 @@ const schema = yup.object().shape({
 const SignUp = ({ title, setModalClosed, setSignInModalOpened }) => {
   const dispatch = useDispatch();
   const authenticationLoadingStatus = useSelector(selectAuthenticationLoading);
-  const authenticationToken = useSelector(selectAuthenticationToken);
 
   const { values, handleChange, handleBlur, handleSubmit, touched, errors } = useFormik({
     initialValues: {
@@ -46,7 +44,7 @@ const SignUp = ({ title, setModalClosed, setSignInModalOpened }) => {
         <>
           <p className="authentication-title">Sign Up</p>
           <form onSubmit={handleSubmit}>
-            <UsernameInput
+            <Input
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.name}
@@ -54,7 +52,7 @@ const SignUp = ({ title, setModalClosed, setSignInModalOpened }) => {
               errors={errors}
               errorsMessage={errors.name && touched.name ? errors.name : null}
             />
-            <PasswordInput
+            <Input
               title="Password"
               placeholder="Password"
               onChange={handleChange}
@@ -63,24 +61,22 @@ const SignUp = ({ title, setModalClosed, setSignInModalOpened }) => {
               onBlur={handleBlur}
               touched={touched}
               errors={errors}
+              type="password"
               errorsMessage={errors.password && touched.password ? errors.password : null}
             />
 
-            <PasswordInput
+            <Input
               title="Confirm password"
               placeholder="!Password"
               onChange={handleChange}
               name="confirmPassword"
               value={values.confirmPassword}
+              type="password"
               onBlur={handleBlur}
               errorsMessage={errors.confirmPassword && touched.confirmPassword ? errors.confirmPassword : null}
             />
 
-            <AuthenticationNotification
-              normalText="Already signed up? "
-              coloredText="Go to login"
-              onClick={setSignInModalOpened}
-            />
+            <HelperText normalText="Already signed up? " coloredText="Go to login" onClick={setSignInModalOpened} />
 
             <Button className="authentication-button" type="submit">
               Sign Up

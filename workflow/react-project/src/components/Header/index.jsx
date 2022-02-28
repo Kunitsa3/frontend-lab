@@ -7,23 +7,22 @@ import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { faHouseUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import AuthenticationModal from '../Modals/Authentication/AuthenticationModal';
 import Button from '@common/Button';
-import SignUp from '../Modals/Authentication/SignUp';
-import SignIn from '../Modals/Authentication/SignIn';
 
 import { changeModalKey } from '@store/appConfigurations/action';
-import { selectAuthenticationToken } from '@store/authentication/selectors';
+import { selectAuthenticationIsUserLoggedIn } from '@store/authentication/selectors';
 import './style.less';
 
 const Header = () => {
   const dispatch = useDispatch();
-  const authenticationToken = useSelector(selectAuthenticationToken);
+  const isUserLoggedIn = useSelector(selectAuthenticationIsUserLoggedIn);
   const [isAuthenticationModalOpened, setAuthenticationModalOpened] = useState(false);
-  const [isSignInModalOpened, setSignInModalOpened] = useState(true);
 
-  const handleModalStateChange = modalKey => {
-    setAuthenticationModalOpened(!isAuthenticationModalOpened);
-    dispatch(changeModalKey(modalKey));
+  const toggleModal = modalKey => {
+    const willOpened = !isAuthenticationModalOpened;
+    setAuthenticationModalOpened(willOpened);
+    dispatch(changeModalKey(willOpened ? modalKey : null));
   };
 
   return (
@@ -32,8 +31,8 @@ const Header = () => {
         <FontAwesomeIcon icon={faMartiniGlassCitrus} className="logo" />
         <p className="logo-title">Cocktail App</p>
       </div>
-      {!authenticationToken ? (
-        <Button onClick={() => handleModalStateChange('Authentication')}>Get Started</Button>
+      {!isUserLoggedIn ? (
+        <Button onClick={() => toggleModal('Authentication')}>Get Started</Button>
       ) : (
         <div className="header-icons-wrapper">
           <FontAwesomeIcon icon={faMagnifyingGlass} className="header-icon" />
@@ -42,24 +41,7 @@ const Header = () => {
         </div>
       )}
 
-      {isAuthenticationModalOpened &&
-        (isSignInModalOpened ? (
-          <SignIn
-            title="Authentication"
-            setModalClosed={() => handleModalStateChange(null)}
-            setSignInModalOpened={() => {
-              setSignInModalOpened(!isSignInModalOpened);
-            }}
-          />
-        ) : (
-          <SignUp
-            title="Authentication"
-            setModalClosed={() => handleModalStateChange(null)}
-            setSignInModalOpened={() => {
-              setSignInModalOpened(!isSignInModalOpened);
-            }}
-          />
-        ))}
+      {isAuthenticationModalOpened && <AuthenticationModal toggleModal={toggleModal} />}
     </header>
   );
 };

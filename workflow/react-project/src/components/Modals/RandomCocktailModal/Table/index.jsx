@@ -3,10 +3,10 @@ import './style.less';
 const Table = ({ randomCocktailDetails }) => (
   <div>
     <div className="recipe-wrapper">
-      <p className="cell-border"></p>
+      <p className="cell-border" />
       <p className="cell-border">Ingredient</p>
       <p className="cell-border">Qnty</p>
-      <p className="cell-border"></p>
+      <p className="cell-border" />
     </div>
     {randomCocktailDetails?.ingredientsDetails?.map((ingredientDetails, index) => {
       return (
