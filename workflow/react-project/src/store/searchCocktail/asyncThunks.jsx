@@ -25,7 +25,6 @@ export const fetchCocktail = createAsyncThunk(
       }
 
       const content = await response.json();
-      console.log(content);
 
       return content;
     } catch (error) {

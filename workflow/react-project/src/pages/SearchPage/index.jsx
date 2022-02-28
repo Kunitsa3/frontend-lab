@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
-import { selectSearchCocktailLoading } from '@store/searchCocktail/selectors';
 
 import CocktailsCardsList from './CocktailsCardsList';
 import SearchInputs from './SearchInputs';
 import Spinner from '@common/Spinner';
 
+import { selectSearchCocktailLoading } from '@store/searchCocktail/selectors';
 import './style.less';
 
 const SearchPage = () => {

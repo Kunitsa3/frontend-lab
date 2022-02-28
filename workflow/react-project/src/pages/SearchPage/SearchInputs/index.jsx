@@ -5,7 +5,6 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { fetchCocktail } from '@store/searchCocktail/action';
-
 import './style.less';
 
 const SearchInputs = () => {
