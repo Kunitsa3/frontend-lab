@@ -1,1 +1,1 @@
-export { fetchAuthenticationTokenAfterSignUp, fetchAuthenticationTokenAfterSignIn } from './asyncThunks';
+export { fetchSignUp, fetchSignIn } from './asyncThunks';

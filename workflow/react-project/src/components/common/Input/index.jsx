@@ -1,5 +1,5 @@
-import UsernameControl from './UsernameInput';
-import PasswordControl from './PasswordInput';
+import UsernameControl from './UsernameControl';
+import PasswordControl from './PasswordControl';
 
 import './style.less';
 
