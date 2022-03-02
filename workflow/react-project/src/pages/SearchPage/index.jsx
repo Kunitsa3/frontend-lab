@@ -9,10 +9,12 @@ import './style.less';
 
 const SearchPage = () => {
   const randomCocktailLoadingStatus = useSelector(selectSearchCocktailLoading);
+
   return (
     <div className="search-page-wrapper">
       <SearchInputs />
-      {selectSearchCocktailLoading ? <Spinner loading={randomCocktailLoadingStatus} /> : <CocktailsCardsList />}
+      <Spinner loading={randomCocktailLoadingStatus} />
+      <CocktailsCardsList />
     </div>
   );
 };
