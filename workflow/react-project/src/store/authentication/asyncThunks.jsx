@@ -1,74 +1,68 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
-export const fetchAuthenticationTokenAfterSignUp = createAsyncThunk(
-  'fetchAuthenticationToken',
-  async ({ values, onSuccess }, { rejectWithValue }) => {
-    try {
-      const response = await fetch('https://stdlab-api.herokuapp.com/api/sign-up', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
+export const fetchSignUp = createAsyncThunk('fetchSignUp', async ({ values, onSuccess }, { rejectWithValue }) => {
+  try {
+    const response = await fetch('https://stdlab-api.herokuapp.com/api/sign-up', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    });
 
-      if (response.status === 403) {
-        const errorMessage = (await response.json()).message;
+    if (response.status === 403) {
+      const errorMessage = (await response.json()).message;
 
-        toast.warning(errorMessage);
+      toast.warning(errorMessage);
 
-        return rejectWithValue(errorMessage);
-      }
-
-      const content = await response.json();
-
-      onSuccess();
-      toast.success('Account created successfully');
-      localStorage.setItem('token', content.token);
-
-      return content;
-    } catch (error) {
-      toast.warning(error);
-
-      return error;
+      return rejectWithValue(errorMessage);
     }
-  },
-);
 
-export const fetchAuthenticationTokenAfterSignIn = createAsyncThunk(
-  'fetchAuthenticationToken',
-  async ({ values, onSuccess }, { rejectWithValue }) => {
-    try {
-      const response = await fetch('https://stdlab-api.herokuapp.com/api/sign-in', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
+    const content = await response.json();
 
-      if (response.status === 403) {
-        const errorMessage = (await response.json()).message;
+    onSuccess();
+    toast.success('Account created successfully');
+    localStorage.setItem('token', content.token);
 
-        toast.warning(errorMessage);
+    return content;
+  } catch (error) {
+    toast.warning(error);
 
-        return rejectWithValue(errorMessage);
-      }
+    return error;
+  }
+});
 
-      const content = await response.json();
+export const fetchSignIn = createAsyncThunk('fetchSignIn', async ({ values, onSuccess }, { rejectWithValue }) => {
+  try {
+    const response = await fetch('https://stdlab-api.herokuapp.com/api/sign-in', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    });
 
-      onSuccess();
-      toast.success('Signed in successfully');
-      localStorage.setItem('token', content.token);
+    if (response.status === 403) {
+      const errorMessage = (await response.json()).message;
 
-      return content;
-    } catch (error) {
-      toast.warning(error);
+      toast.warning(errorMessage);
 
-      return error;
+      return rejectWithValue(errorMessage);
     }
-  },
-);
+
+    const content = await response.json();
+
+    onSuccess();
+    toast.success('Signed in successfully');
+    localStorage.setItem('token', content.token);
+
+    return content;
+  } catch (error) {
+    toast.warning(error);
+
+    return error;
+  }
+});

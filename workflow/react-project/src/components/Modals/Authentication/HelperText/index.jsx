@@ -1,10 +1,10 @@
 import './style.less';
 
-const HelperText = ({ normalText, coloredText, onClick }) => (
+const HelperText = ({ text, linkText, onClick }) => (
   <p className="primary-text">
-    {normalText}
-    <span className="colored-text" onClick={onClick}>
-      {coloredText}
+    {text}
+    <span className="link-text" onClick={onClick}>
+      {linkText}
     </span>
   </p>
 );
