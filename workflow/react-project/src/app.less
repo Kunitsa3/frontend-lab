@@ -1,5 +1,36 @@
+@import "~@styles/constants.less";
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+:active,
+:hover,
+:focus {
+  outline: 0;
+  outline-offset: 0;
+}
+
+.Toastify__toast-container {
+  --toastify-toast-min-height: 40px;
+
+  @media (min-width: @width-1024) {
+    --toastify-toast-min-height: 80px;
+  }
+}
+
+.Toastify__toast-container--top-right {
+  top: 60px;
+  right: 0;
+
+  @media (min-width: @width-1024) {
+    top: 90px;
+    right: 30px;
+  }
+}
+
+.Toastify__toast-container--top-right {
+  --toastify-color-success: #50ae35;
 }

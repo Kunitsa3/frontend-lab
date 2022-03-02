@@ -57,7 +57,10 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   optimization: optimization(),
-  devServer: { port: 8000, hot: isDev },
+  devServer: {
+    port: 8000,
+    hot: isDev,
+  },
   plugins: getPlugins(),
   module: {
     rules: [

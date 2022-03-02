@@ -13,7 +13,10 @@ export const normalizeRandomCocktailData = data => {
         ...acc,
         {
           ingredient: value,
-          quantity: measure?.match(/[\s\d/\/]+/)?.join(''),
+          quantity: measure
+            ?.match(/[\s\d/\/]+/)
+            ?.join('')
+            .trim(),
           unit: measure?.match(/[a-z ]/gi)?.join(''),
         },
       ];

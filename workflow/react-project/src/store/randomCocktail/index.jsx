@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchRandomCocktail } from './action';
+import { fetchRandomCocktail } from './asyncThunks';
 import { normalizeRandomCocktailData } from './utils';
 
 const initialState = {
