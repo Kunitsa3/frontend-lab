@@ -7,7 +7,6 @@ import './style.less';
 
 const CocktailsCardsList = () => {
   const cocktailsDetails = useSelector(selectSearchCocktailDetails);
-  console.log(cocktailsDetails);
 
   return (
     <div className="cocktails-cards-lest-wrapper">
