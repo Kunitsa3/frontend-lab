@@ -44,7 +44,7 @@ module.exports = {
   context: path.resolve(__dirname, 'src'),
   devtool: 'source-map',
   entry: ['./index.jsx'],
-  output: { filename: '[contenthash].js', path: path.resolve(__dirname, 'dist') },
+  output: { filename: '[contenthash].js', path: path.resolve(__dirname, 'dist'), publicPath: '/' },
   resolve: {
     alias: {
       '@assets': path.resolve(__dirname, 'src/assets'),
@@ -53,6 +53,7 @@ module.exports = {
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@styles': path.resolve(__dirname, 'src/styles'),
       '@store': path.resolve(__dirname, 'src/store'),
+      '@routing': path.resolve(__dirname, 'src/routing'),
     },
     extensions: ['.js', '.jsx'],
   },
@@ -60,6 +61,7 @@ module.exports = {
   devServer: {
     port: 8000,
     hot: isDev,
+    historyApiFallback: true,
   },
   plugins: getPlugins(),
   module: {
