@@ -10,7 +10,6 @@ const CocktailCard = ({ name, picture }) => {
       <div className="cocktail-card-photo-wrapper">
         <img className="cocktail-card-photo" src={picture} />
       </div>
-
       <p className="cocktail-card-name">{name}</p>
       <div className="d-flex">
         <Tooltip text="Contain Alcohol">

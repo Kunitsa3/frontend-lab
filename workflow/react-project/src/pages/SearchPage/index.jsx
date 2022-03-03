@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import CocktailsCardsList from './CocktailsCardsList';
-import SearchInputs from './SearchInputs';
+import SearchControls from './SearchControls';
 import Spinner from '@common/Spinner';
 
 import { selectSearchCocktailLoading } from '@store/searchCocktail/selectors';
@@ -12,7 +12,7 @@ const SearchPage = () => {
 
   return (
     <div className="search-page-wrapper">
-      <SearchInputs />
+      <SearchControls />
       <Spinner loading={randomCocktailLoadingStatus} />
       <CocktailsCardsList />
     </div>

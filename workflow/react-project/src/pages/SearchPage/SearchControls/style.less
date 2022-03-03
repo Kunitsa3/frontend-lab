@@ -1,0 +1,46 @@
+@import "~@styles/colors.less";
+@import "~@styles/mixins.less";
+@import "~@styles/fonts.less";
+@import "~@styles/constants.less";
+
+.search-input-wrapper {
+  .flex-between-vertical-centered;
+
+  width: 300px;
+  height: 50px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding-right: 20px;
+
+  @media (min-width: @width-768) {
+    width: 600px;
+  }
+
+  @media (min-width: @width-1024) {
+    width: 700px;
+  }
+}
+
+.search-input {
+  .asap-font;
+
+  font-size: 18px;
+  line-height: 21px;
+  width: 100%;
+  background-color: @light-green-color;
+  padding-left: 22px;
+  border: none;
+}
+
+.search-icon {
+  font-size: 20px;
+  color: @dark-green-color;
+  cursor: pointer;
+}
+
+.radio-inputs-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 43px;
+  margin-bottom: 75px;
+}

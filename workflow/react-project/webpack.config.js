@@ -53,6 +53,7 @@ module.exports = {
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@styles': path.resolve(__dirname, 'src/styles'),
       '@store': path.resolve(__dirname, 'src/store'),
+      '@routing': path.resolve(__dirname, 'src/routing'),
     },
     extensions: ['.js', '.jsx'],
   },
